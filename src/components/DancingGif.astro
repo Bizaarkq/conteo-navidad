@@ -37,7 +37,7 @@
     // Crear y mostrar un nuevo GIF
     const gifSrc = gifs[Math.floor(Math.random() * gifs.length)];
     const gifElement = document.createElement("img");
-    gifElement.src = ${import.meta.env.BASE_URL} + gifSrc;
+    gifElement.src = `${import.meta.env.BASE_URL}${gifSrc}`
     gifElement.className = "dancing-gif";
 
     // Posición aleatoria
