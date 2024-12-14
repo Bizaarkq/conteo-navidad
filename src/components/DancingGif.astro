@@ -1,0 +1,76 @@
+---
+
+---
+
+<div id="dancing-gifs-container"></div>
+
+<script>
+  const gifs = [
+    "/src/assets/gifs/brasilian-dog.webp",
+    "/src/assets/gifs/dalezeldadale.webp",
+    "/src/assets/gifs/dance-kid.webp",
+    "/src/assets/gifs/dino-sapo.webp",
+    "/src/assets/gifs/perritos-saltando.webp",
+    "/src/assets/gifs/santa-perreador.webp",
+    "/src/assets/gifs/suavemente.webp",
+    "/src/assets/gifs/unlinkmega100realnofake.webp",
+    "/src/assets/gifs/vandam.webp",
+    "/src/assets/gifs/viejo-lesbiano.webp",
+  ];
+  const container = document.getElementById("dancing-gifs-container");
+
+  const calculateMaxGifs = () => {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    // Calcula un límite proporcional al área de la pantalla
+    const area = screenWidth * screenHeight;
+    return Math.min(gifs.length - 1, Math.floor(area / 100000)); // Por ejemplo: 1 GIF por cada 50,000 px²
+  };
+
+  const maxGifs = calculateMaxGifs();
+  const activeGifs = [];
+
+  const showRandomGif = () => {
+    if (activeGifs.length >= maxGifs) return; // Si ya alcanzamos el límite, no agregar más
+
+    // Crear y mostrar un nuevo GIF
+    const gifSrc = gifs[Math.floor(Math.random() * gifs.length)];
+    const gifElement = document.createElement("img");
+    gifElement.src = gifSrc;
+    gifElement.className = "dancing-gif";
+
+    // Posición aleatoria
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    gifElement.style.left = `${Math.random() * (screenWidth - 100)}px`;
+    gifElement.style.top = `${Math.random() * (screenHeight - 100)}px`;
+
+    // Agregar el GIF al contenedor y al array de GIFs activos
+    container.appendChild(gifElement);
+    activeGifs.push(gifElement);
+
+    // Mostrar el GIF
+    gifElement.style.opacity = 1;
+
+    // Eliminar el GIF después de 4 segundos
+    setTimeout(() => {
+      gifElement.style.opacity = 0;
+      setTimeout(() => {
+        gifElement.remove();
+        activeGifs.shift(); // Eliminar el GIF de la lista activa
+        showRandomGif(); // Agregar un nuevo GIF en su lugar
+      }, 1000);
+    }, 4000);
+  };
+
+  // Inicialmente llena la pantalla con el número máximo de GIFs
+  const initializeGifs = () => {
+    for (let i = 0; i < maxGifs; i++) {
+      setTimeout(showRandomGif, i * 2000); // Espaciarlos para una mejor apariencia
+    }
+  };
+
+  // Ejecutar al cargar la página
+  initializeGifs();
+</script>

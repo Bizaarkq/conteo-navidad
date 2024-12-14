@@ -1,0 +1,48 @@
+<div id="snow-container"></div>
+
+<script>
+  // Generar copos de nieve
+  const createSnowflakes = () => {
+    const snowContainer = document.getElementById("snow-container");
+
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("snowflake-wrapper");
+
+    const snowflake = document.createElement("div");
+    snowflake.classList.add("snowflake");
+    snowflake.textContent = "❄";
+
+    // Configuración inicial
+    const size = Math.random() * 1.5 + 0.5; // Tamaño aleatorio
+    wrapper.style.left = `${Math.random() * 100}vw`; // Posición horizontal inicial
+    wrapper.style.animationDuration = `${3 + size * 2}s`; // Duración basada en el tamaño
+    snowflake.style.fontSize = `${size}rem`;
+
+    // Agregar el copo al contenedor
+    wrapper.appendChild(snowflake);
+    snowContainer.appendChild(wrapper);
+
+    // Eliminar el copo tras su animación
+    const duration = parseFloat(wrapper.style.animationDuration) * 1000;
+    setTimeout(() => {
+      wrapper.remove();
+    }, duration);
+  };
+
+  // Generar copos periódicamente
+  setInterval(createSnowflakes, 100);
+
+  // Movimiento según el mouse
+  document.addEventListener("mousemove", (e) => {
+    const snowflakes = document.querySelectorAll(".snowflake");
+    const screenWidth = window.innerWidth;
+    const mouseX = e.clientX;
+
+    // Calcular desplazamiento relativo al mouse
+    const offset = ((screenWidth / 2) - mouseX) / screenWidth * 100
+
+    snowflakes.forEach((snowflake) => {
+      snowflake.style.transform = `translateX(${offset}px)`; // Solo aplica movimiento horizontal
+    });
+  });
+</script>

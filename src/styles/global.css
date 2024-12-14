@@ -1,0 +1,266 @@
+/* mountains-of-christmas-regular - latin */
+@font-face {
+    font-family: 'Mountains of Christmas';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/src/assets/fonts/mountains-of-christmas.woff2') format('woff2');
+  }
+
+@font-face {
+    font-family: 'Henny Penny';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/src/assets/fonts/henny-penny.woff2') format('woff2');
+  }
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    background-image: url('/src/assets/back.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Mountains of Christmas', sans-serif;
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Oculta la barra de scroll en navegadores basados en WebKit (Chrome, Edge, Safari) */
+}
+
+#main-container {
+  display: flex;
+  flex-direction: column; /* Apila los elementos verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  justify-content: flex-start; /* Alinea desde la parte superior */
+  box-sizing: border-box; /* Incluye padding en el cálculo del tamaño */
+  overflow: hidden; /* Oculta cualquier contenido desbordado */
+  gap: 20px; /* Espacio entre los elementos */
+
+  height: auto; /* Ajusta la altura según el contenido */
+  min-height: 100vh; /* Asegura que siempre ocupe al menos el tamaño del viewport */
+  padding: 10px; /* Espacio alrededor del contenido */
+  overflow-y: auto; /* Habilita el scroll si el contenido excede la pantalla */
+}
+
+/* Contenedor Principal */
+#countdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    height: auto; /* Asegura que ocupe toda la pantalla */
+    padding: 2rem;
+    box-sizing: border-box; /* Evita problemas con el padding */
+    z-index: 1; /* Asegura que esté por encima de otros elementos */
+    position: relative; /* Permite posicionar elementos hijos */
+    margin-bottom: 20px;
+}
+
+
+/* Frases Superior e Inferior */
+.phrase {
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+    font-family: 'Henny Penny', sans-serif;
+  }
+  
+  .phrase-top {
+    font-size: 4vh;
+    margin-bottom: 2rem;
+  }
+  
+  .phrase-bottom {
+    font-size: 4vh;
+    margin-top: 2rem;
+  }
+  
+  /* Contador */
+  #countdown {
+    display: grid;
+    gap: 2rem;
+    text-align: center;
+    /* Ajusta la posición para centrar */
+    font-size: 4rem;
+    /* Ajusta el tamaño de la fuente */
+    color: #ffffff;
+    /* Color del texto */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Asegura que esté por encima de otros elementos */
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    border: 2px solid #C40000;
+    border-radius: 15px;
+    padding: 20px;
+    width: 80%; /* Ajusta el ancho del div */
+    max-width: 1000px; /* Tamaño máximo opcional */
+  }
+  
+  /* Elementos del Contador */
+  .countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .highlight {
+    font-size: 4rem;
+    color: #ffdb58;
+    font-weight: bold;
+  }
+  
+  .label {
+    font-size: 1.5rem;
+    color: white;
+  }
+
+.phrase {
+    font-size: 12vh;
+    text-shadow: 
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Pantallas Muy Pequeñas */
+@media (max-width: 768px) {
+    .phrase-top,
+    .phrase-bottom {
+      font-size: 10vh; /* Tamaño más pequeño */
+    }
+  
+    #countdown {
+      grid-template-columns: 1fr; /* Apila los elementos en una columna */
+      gap: 1rem; /* Reduce el espacio entre elementos */
+    }
+  
+    .highlight {
+      font-size: 3rem; /* Reduce el tamaño de los números */
+    }
+  
+    .label {
+      font-size: 1.2rem; /* Reduce el tamaño de las etiquetas */
+    }
+  }
+  
+  /* Pantallas Grandes */
+  @media (min-width: 1024px) {
+    .phrase-top,
+    .phrase-bottom {
+      font-size: 10vh; /* Tamaño más grande */
+    }
+  
+    #countdown {
+      grid-template-columns: repeat(4, 1fr); /* 4 columnas para cada elemento */
+      grid-template-rows: auto auto; /* Dos filas: números y etiquetas */
+    }
+  
+    .highlight {
+      font-size: 5rem; /* Tamaño más grande para los números */
+    }
+  
+    .label {
+      font-size: 3rem; /* Tamaño más grande para etiquetas */
+    }
+  }
+  
+  #snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  .snowflake-wrapper {
+    position: absolute;
+    top: -10px; /* Comienza fuera de la pantalla */
+    left: 0;
+    width: auto;
+    will-change: transform; /* Mejora el rendimiento */
+    animation: fall linear infinite; /* La animación base */
+  }
+
+  .snowflake {
+    color: white;
+    font-size: 1rem;
+    opacity: 1; /* Totalmente visible */
+    transition: transform 1s ease-out; /* Movimiento suave para transformaciones */
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translate(0, -10px); /* Empieza arriba */
+      opacity: 1; /* Visible */
+    }
+    100% {
+      transform: translate(calc(var(--wind-offset, 0px)), 100vh); /* Caída diagonal */
+      opacity: 0; /* Se desvanece */
+    }
+  }
+
+  #dancing-gifs-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* No interfiere con clics */
+    z-index: 0;
+  }
+
+  .dancing-gif {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    opacity: 0;
+    border: 4px solid transparent;
+    border-radius: 15px;
+    animation: glowing 3s infinite;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    
+  }
+  
+  @keyframes glowing {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+  }
+  
+  #spotify-embed-container {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 700px; /* Tamaño máximo para pantallas grandes */
+    z-index: 1; /* Asegura que esté por encima de otros elementos */
+  }
+  
+  iframe {
+    width: 100%; /* Ancho completo del contenedor */
+    height: auto; /* Mantiene la proporción del reproductor */
+    aspect-ratio: 16 / 9; /* Proporción de 16:9 */
+    border-radius: 10px; /* Opcional: bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra opcional */
+  }
+  
